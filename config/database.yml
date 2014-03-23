@@ -18,5 +18,14 @@ development:
   adapter: postgresql
   encoding: unicode
   database: myapp_development
+  user: postgres	
   pool: 5
-  password:
+  password: Brigitte
+  
+test:
+  adapter: postgresql
+  encoding: unicode
+  database: myapp_test
+  user: postgres	
+  pool: 5
+  password: Brigitte
