@@ -15,36 +15,44 @@ class ProductTest < ActiveSupport::TestCase
     product = Product.new(title:		"My Book Title",
 						  description:  "yyy",
 						  image_url:    "zzz.jpg")
-	product.price = -1
+	product.price = -1.00
 	assert product.invalid?
-	assert_equal ["must be greater than or equal to 0.05"], 
-	  product.errors[:price].join('; ')
-	assert_equal "Betrag muss auf 5 Rappen gerundet sein!",
+	assert_match "must be greater than or equal to 0.05", 
 	  product.errors[:price].join('; ')
 	
-	product.price = 0
+	product.price = 0.00
 	assert product.invalid?
-	assert_equal ["must be greater than or equal to 0.05"], 
+	assert_match "must be greater than or equal to 0.05", 
 	  product.errors[:price].join('; ')
 		
-	product.price = 1
+	product.price = 1.00
 	assert product.valid?
+  end
+  
+  test "product price must be x.x0 or x.x5" do
+	product = Product.new(title:		"My Book Title2",
+						  description:	"yyy2",
+						  price:		1.07,
+						  image_url:	"xxx2.jpg")
+	
+	product.valid?
+	assert_match "Betrag muss auf 5 Rappen gerundet sein!",
+	  product.errors[:price].join('; ')
   end
   
   def new_product(image_url)
     Product.new(title:		"My Book Title",
 				description: "yyy",
-				price:		1,
+				price:		1.00,
 				image_url:	image_url)
   end
   
   test "image_url" do
-    ok = %w{ fred.gif fred.jpg fred.png FRED.JPG FRED.Jpg
-			http://a.b.c/x/y/z/fred.gif }
+    ok = %w{ fred.gif fred.jpg fred.png FRED.JPG FRED.Jpg http://a.b.c/x/y/z/fred.gif }
 	bad = %w{ fred.doc fred.gif/more fred.gif.more}
 	
 	ok.each do |name|
-	  assert new_product(name).valid?, "#{name} should be valid"
+		assert new_product(name).valid?, "#{name} should be valid"
 	end
 	
 	bad.each do |name|
@@ -55,12 +63,11 @@ class ProductTest < ActiveSupport::TestCase
   test "product is not valid without a unique title" do
     product = Product.new(title:		products(:ruby).title,
 						  description:	"yyy",
-						  price:		1,
+						  price:		1.00,
 						  image_url:	"fred.gif")
 	
 	assert product.invalid?
-	assert_equal "has already been taken", 
-	product.errors[:title].join('; ')
+	assert_match "has already been taken", product.errors[:title].join('; ')
   end
   
   test "product is not valid without a unique title - i18n" do
@@ -69,7 +76,7 @@ class ProductTest < ActiveSupport::TestCase
 						  price:			1,
 						  image_url:		"fred.gif")
 	assert product.invalid?
-	assert_equal [I18n.translate('errors.message.taken')],
+	assert_match "has already been taken",
 				 product.errors[:title].join('; ')
   end
  # test "product price must be positive" do

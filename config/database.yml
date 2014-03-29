@@ -21,6 +21,7 @@ development:
   user: postgres	
   pool: 5
   password: Brigitte
+
   
 test:
   adapter: postgresql
