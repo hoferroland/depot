@@ -22,4 +22,8 @@ def validate_price
 	errors.add(:price, "Betrag muss auf 5 Rappen gerundet sein!")
 end
 
+def self.latest
+  Product.order(:updated_at).last
+end
+
 end	
