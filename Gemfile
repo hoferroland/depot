@@ -44,4 +44,4 @@ end
 # gem 'debugger', group: [:development, :test]
 
 # 12factor.net
-gem 'rails_12factor'
+# gem 'rails_12factor'

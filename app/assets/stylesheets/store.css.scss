@@ -13,14 +13,12 @@
     border-bottom: 3px dotted #77d;
   }
 
-
   /* An entry in the store catalog */
   .entry {
     overflow: auto;
     margin-top: 1em;
     border-bottom: 1px dotted #77d;
-    min-height: 100px;
-
+    min-height: 150px;
 
     img {
       width: 80px;
@@ -28,7 +26,6 @@
       margin-bottom: 5px;
       position: absolute;
     }
-
 
     h3 {
       font-size: 120%;
@@ -39,13 +36,11 @@
       color: #227;
     }
 
-
     p, div.price_line {
       margin-left: 100px;
       margin-top: 0.5em; 
       margin-bottom: 0.8em; 
     }
-
 
     .price {
       color: #44a;
