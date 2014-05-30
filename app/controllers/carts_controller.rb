@@ -54,11 +54,10 @@ class CartsController < ApplicationController
   # DELETE /carts/1
   # DELETE /carts/1.json
   def destroy
-    @cart.destroy if @cart.id == session[:cart_id]
+    @cart.destroy if @cart.id == session[:cart_id] # Iteration 3 Kapitel 10.3, s. 129
 	session[:cart_id] = nil
     respond_to do |format|
-      format.html { redirect_to store_url,
-         notice: 'Ihr Warenkorb ist leer' }
+      format.html { redirect_to store_url }
       format.json { head :no_content }
     end
   end
