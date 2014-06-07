@@ -6,7 +6,9 @@ Depot::Application.routes.draw do
   resources :carts
 
   get "store/index"
-  resources :products
+  resources :products do     # Buch Kapitel 12.2
+    get :who_bought, on: :member    # Buch Kapitel 12.2
+  end
 
   
   root 'store#index', as: 'store'
